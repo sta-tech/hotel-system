@@ -11,34 +11,34 @@ option java_outer_classname = "InventoryServiceProto";
 service InventoryService {
     rpc getAvailableRooms(GetAvailableRoomsRequest) returns (GetAvailableRoomsResponse);
 
-	rpc reserveRooms(ReserveRoomsRequest) returns (ReserveRoomsResponse);
+  	rpc reserveRooms(ReserveRoomsRequest) returns (ReserveRoomsResponse);
 }
 
 message GetAvailableRoomsRequest {
-	int32 hotel_id = 1;
-	google.protobuf.Timestamp start_date = 2;
-	google.protobuf.Timestamp end_date = 3;
+		int32 hotel_id = 1;
+		google.protobuf.Timestamp start_date = 2;
+		google.protobuf.Timestamp end_date = 3;
 }
 
 message GetAvailableRoomsResponse {
-	int32 hotel_id = 1;
-	google.protobuf.Timestamp start_date = 2;
-	google.protobuf.Timestamp end_date = 3;
-	map<int32, int32> room_availability = 4;
+		int32 hotel_id = 1;
+		google.protobuf.Timestamp start_date = 2;
+		google.protobuf.Timestamp end_date = 3;
+		map<int32, int32> room_availability = 4;
 }
 
 message ReserveRoomsRequest {
-	int32 hotel_id = 1;
-	int32 type = 2;
-	google.protobuf.Timestamp start_date = 3;
-	google.protobuf.Timestamp end_date = 4;
+		int32 hotel_id = 1;
+		int32 type = 2;
+		google.protobuf.Timestamp start_date = 3;
+		google.protobuf.Timestamp end_date = 4;
 }
 
 message ReserveRoomsResponse {
-	int32 hotel_id = 1;
-	int32 type = 2;
-	google.protobuf.Timestamp start_date = 3;
-	google.protobuf.Timestamp end_date = 4;
-	int32 reserved = 5;
-	int32 available = 6;
+		int32 hotel_id = 1;
+		int32 type = 2;
+		google.protobuf.Timestamp start_date = 3;
+		google.protobuf.Timestamp end_date = 4;
+		int32 reserved = 5;
+		int32 available = 6;
 }

@@ -1,0 +1,17 @@
+server:
+  port: 10022
+
+spring:
+  application:
+    name: task-worker
+
+management:
+  info:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include:
+          - info
+          - health
