@@ -24,4 +24,17 @@ public class InventoryService extends InventoryServiceGrpc.InventoryServiceImplB
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
+
+    @Override
+    public void undoReservation(UndoReserveRequest request, StreamObserver<UndoReserveResponse> responseObserver) {
+        var response = UndoReserveResponse.newBuilder()
+                .setHotelId(request.getHotelId())
+                .setType(request.getType())
+                .setStartDate(request.getStartDate())
+                .setEndDate(request.getEndDate())
+                .setAvailable(23)
+                .build();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
 }

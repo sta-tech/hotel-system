@@ -14,9 +14,15 @@ public class ReservationService extends ReservationServiceGrpc.ReservationServic
 
     @Override
     public void create(CreateReservationRequest request, StreamObserver<CreateReservationResponse> responseObserver) {
+        var reservationId = rnd.nextInt(1, 1000);
+
+        if (reservationId < 500) {
+            throw new IllegalStateException("Unable to create reservation");
+        }
+
         var response = CreateReservationResponse.newBuilder()
                 .setHotelId(request.getHotelId())
-                .setReservationId(rnd.nextInt(1, 1000))
+                .setReservationId(reservationId)
                 .build();
 
         responseObserver.onNext(response);

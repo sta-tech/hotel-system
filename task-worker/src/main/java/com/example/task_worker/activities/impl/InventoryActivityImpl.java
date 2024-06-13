@@ -2,9 +2,12 @@ package com.example.task_worker.activities.impl;
 
 import com.demo.proto.inventory.InventoryServiceGrpc;
 import com.demo.proto.inventory.ReserveRoomsRequest;
+import com.demo.proto.inventory.UndoReserveRequest;
 import com.example.task_worker.activities.InventoryActivity;
 import com.example.task_worker.data.InventoryRequest;
 import com.example.task_worker.data.InventoryResponse;
+import com.example.task_worker.data.UndoReservationRequest;
+import com.example.task_worker.data.UndoReservationResponse;
 import com.google.protobuf.Timestamp;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Component;
@@ -34,6 +37,22 @@ public class InventoryActivityImpl implements InventoryActivity {
                 reservationRequest.getEndDate(),
                 inventoryData.getReserved(),
                 inventoryData.getAvailable()
+        );
+    }
+
+    @Override
+    public UndoReservationResponse undoReservation(UndoReservationRequest request) {
+        var undoRequest = UndoReserveRequest.newBuilder()
+                .build();
+
+        var undoResult = inventoryServiceStub.undoReservation(undoRequest);
+
+        return new UndoReservationResponse(
+                request.getHotelId(),
+                request.getRoomTypeId(),
+                request.getStartDate(),
+                request.getEndDate(),
+                undoResult.getAvailable()
         );
     }
 
