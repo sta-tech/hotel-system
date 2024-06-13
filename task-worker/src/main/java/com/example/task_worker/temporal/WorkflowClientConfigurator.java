@@ -14,6 +14,7 @@ public class WorkflowClientConfigurator {
         return WorkflowClient.newInstance(
                 WorkflowServiceStubs.newServiceStubs(
                         WorkflowServiceStubsOptions.newBuilder()
+                                .setTarget("dns:///127.0.0.1:7233")
                                 .build()
                 ),
                 WorkflowClientOptions.newBuilder()
