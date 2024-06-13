@@ -7,7 +7,7 @@ spring:
 
 grpc:
   server:
-    port: 0
+    port: 9898
 
 eureka:
   instance:

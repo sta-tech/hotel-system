@@ -1,8 +1,6 @@
 package com.example.inventory_service.services;
 
-import com.demo.proto.inventory.GetAvailableRoomsRequest;
-import com.demo.proto.inventory.GetAvailableRoomsResponse;
-import com.demo.proto.inventory.InventoryServiceGrpc;
+import com.demo.proto.inventory.*;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 
@@ -11,5 +9,19 @@ public class InventoryService extends InventoryServiceGrpc.InventoryServiceImplB
     @Override
     public void getAvailableRooms(GetAvailableRoomsRequest request, StreamObserver<GetAvailableRoomsResponse> responseObserver) {
         responseObserver.onNext(GetAvailableRoomsResponse.newBuilder().build());
+    }
+
+    @Override
+    public void reserveRooms(ReserveRoomsRequest request, StreamObserver<ReserveRoomsResponse> responseObserver) {
+        var response = ReserveRoomsResponse.newBuilder()
+                .setHotelId(request.getHotelId())
+                .setType(request.getType())
+                .setStartDate(request.getStartDate())
+                .setEndDate(request.getEndDate())
+                .setReserved(1)
+                .setAvailable(22)
+                .build();
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
     }
 }

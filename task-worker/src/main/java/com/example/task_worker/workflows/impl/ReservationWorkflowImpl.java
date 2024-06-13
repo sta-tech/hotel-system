@@ -28,8 +28,16 @@ public class ReservationWorkflowImpl implements ReservationWorkflow {
                 request.getEndDate()
         );
 
-        activities.reserve(inventoryRequest);
+        var inventoryResponse = activities.reserve(inventoryRequest);
 
-        return new ReservationWorkflowResponse(123);
+        return new ReservationWorkflowResponse(
+                123,
+                inventoryResponse.getHotelId(),
+                inventoryResponse.getRoomTypeId(),
+                inventoryResponse.getStartDate(),
+                inventoryResponse.getEndDate(),
+                inventoryResponse.getReserved(),
+                inventoryResponse.getAvailable()
+        );
     }
 }
