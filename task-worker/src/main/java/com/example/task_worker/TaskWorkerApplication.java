@@ -1,6 +1,7 @@
 package com.example.task_worker;
 
 import com.example.task_worker.activities.InventoryActivity;
+import com.example.task_worker.activities.ReservationActivity;
 import com.example.task_worker.workflows.impl.ReservationWorkflowImpl;
 import io.temporal.client.WorkflowClient;
 import io.temporal.worker.Worker;
@@ -19,6 +20,8 @@ public class TaskWorkerApplication {
 	private WorkflowClient workflowClient;
 	@Autowired
 	private InventoryActivity inventoryActivity;
+	@Autowired
+	private ReservationActivity reservationActivity;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TaskWorkerApplication.class, args);
@@ -35,6 +38,7 @@ public class TaskWorkerApplication {
 		Worker worker = factory.newWorker("main");
 		worker.registerWorkflowImplementationTypes(ReservationWorkflowImpl.class);
 		worker.registerActivitiesImplementations(inventoryActivity);
+		worker.registerActivitiesImplementations(reservationActivity);
 		return factory;
 	}
 }

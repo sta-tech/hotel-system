@@ -24,8 +24,6 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 	implementation("net.devh:grpc-spring-boot-starter:3.1.0.RELEASE")
-	implementation("io.temporal:temporal-sdk:1.23.1")
-	implementation(project(":proto:inventory"))
 	implementation(project(":proto:reservation"))
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

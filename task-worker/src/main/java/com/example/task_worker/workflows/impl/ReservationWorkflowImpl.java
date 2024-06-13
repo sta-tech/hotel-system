@@ -1,9 +1,8 @@
 package com.example.task_worker.workflows.impl;
 
 import com.example.task_worker.activities.InventoryActivity;
-import com.example.task_worker.data.InventoryRequest;
-import com.example.task_worker.data.ReservationWorkflowRequest;
-import com.example.task_worker.data.ReservationWorkflowResponse;
+import com.example.task_worker.activities.ReservationActivity;
+import com.example.task_worker.data.*;
 import com.example.task_worker.workflows.ReservationWorkflow;
 import io.temporal.activity.ActivityOptions;
 import io.temporal.workflow.Workflow;
@@ -11,9 +10,16 @@ import io.temporal.workflow.Workflow;
 import java.time.Duration;
 
 public class ReservationWorkflowImpl implements ReservationWorkflow {
-    private final InventoryActivity activities =
+    private final InventoryActivity inventoryActivities =
             Workflow.newActivityStub(
                     InventoryActivity.class,
+                    ActivityOptions.newBuilder()
+                            .setStartToCloseTimeout(Duration.ofSeconds(2))
+                            .build()
+            );
+    private final ReservationActivity reservationActivities =
+            Workflow.newActivityStub(
+                    ReservationActivity.class,
                     ActivityOptions.newBuilder()
                             .setStartToCloseTimeout(Duration.ofSeconds(2))
                             .build()
@@ -28,10 +34,16 @@ public class ReservationWorkflowImpl implements ReservationWorkflow {
                 request.getEndDate()
         );
 
-        var inventoryResponse = activities.reserve(inventoryRequest);
+        var inventoryResponse = inventoryActivities.reserve(inventoryRequest);
+
+        var reservationRequest = new ReservationRequest(
+                request.getHotelId()
+        );
+
+        var reservationResponse = reservationActivities.create(reservationRequest);
 
         return new ReservationWorkflowResponse(
-                123,
+                reservationResponse.getReservationId(),
                 inventoryResponse.getHotelId(),
                 inventoryResponse.getRoomTypeId(),
                 inventoryResponse.getStartDate(),

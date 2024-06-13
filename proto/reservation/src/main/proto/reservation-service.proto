@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package com.demo.proto.reservation;
+
+option java_multiple_files = true;
+option java_package = "com.demo.proto.reservation";
+option java_outer_classname = "ReservationServiceProto";
+
+service ReservationService {
+  	rpc create(CreateReservationRequest) returns (CreateReservationResponse);
+}
+
+message CreateReservationRequest {
+		int32 hotel_id = 1;
+}
+
+message CreateReservationResponse {
+		int32 hotel_id = 1;
+		int32 reservation_id = 2;
+}
